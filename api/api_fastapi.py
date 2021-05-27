@@ -16,15 +16,16 @@ class WineMeasurementData(BaseModel, extra=Extra.forbid):
     color_intensity: float
     hue: float
 
+
 class WineTypePredictionProba(BaseModel):
-    class_0 : float
-    class_1 : float
-    class_2 : float
+    class_0: float
+    class_1: float
+    class_2: float
+
 
 class WineTypePredictionResponse(BaseModel):
     predicted_class: int
     proba: WineTypePredictionProba
-
 
 
 with open("classifier.joblib", "rb") as f:
@@ -37,20 +38,17 @@ with open("features.json", "r") as f:
 api = FastAPI()
 
 
-@api.get(
-    "/status",
-    response_model=int,
-    description="Returns 1 if API is healthy."
-)
+@api.get("/status", response_model=int, description="Returns 1 if API is healthy.")
 async def status():
     return 1
 
+
 @api.post(
-    '/predict',
+    "/predict",
     response_model=WineTypePredictionResponse,
-    description="Returns predicted wine type and probabilities."
+    description="Returns predicted wine type and probabilities.",
 )
-async def predict(wine_measurement_data : WineMeasurementData):
+async def predict(wine_measurement_data: WineMeasurementData):
 
     data = pd.DataFrame([wine_measurement_data.dict()])
     data = data[features]
@@ -62,7 +60,6 @@ async def predict(wine_measurement_data : WineMeasurementData):
         "proba": {
             "class_0": predicted_proba[0],
             "class_1": predicted_proba[1],
-            "class_2": predicted_proba[2]
-        }
+            "class_2": predicted_proba[2],
+        },
     }
-

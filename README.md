@@ -10,17 +10,16 @@ The relevant files are :
 - [api/api_flask.py](./api/api_flask.py) : Flask API to deploy the model
 - [api/api_fastapi.py](./api/api_fastapi.py) : FastAPI API to deploy the model
 
-
 To run the Flask API :
 
 ```python
-cd api 
+cd api
 python app.py
 ```
 
 To run the FastAPI API :
 
 ```python
-cd api 
+cd api
 uvicorn api_fastapi:api --reload
 ```
