@@ -48,7 +48,7 @@ async def status():
 @api.post(
     '/predict',
     response_model=WineTypePredictionResponse,
-    description="Returns predicted whine type and probabilities."
+    description="Returns predicted wine type and probabilities."
 )
 async def predict(wine_measurement_data : WineMeasurementData):
 
